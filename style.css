@@ -1,0 +1,1074 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+
+
+/* base style */
+* /*css untuk semua isi file html*/ {
+    font-family: "Poppins", sans-serif;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+body {
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+/*Root*/ /*variabel*/
+:root {
+    --bg-color: #FFF9F0;          /* cream utama */
+    --text-color: #3a2925;        /* dark navy */
+    --main-color: #e83b3b;        /* dusty rose */
+}
+
+section {
+    min-height: 100vh;
+    padding: 10rem/*buat top*/ 9%/*buat left-right*/ 2rem/*buat bottom*/;
+}
+/* end base style */
+.fab-container {
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.fab-main {
+    position: relative;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+
+    background: var(--main-color);
+    color: var(--bg-color);
+
+    box-shadow: 0 0.6rem 1.6rem rgba(0,0,0,0.35);
+    transition: transform 0.3s ease;
+}
+
+.fab-main:hover {
+    transform: scale(1.1);
+}
+
+/* kedua icon numpuk persis di tengah tombol */
+.fab-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.4rem;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+#iconMail {
+    opacity: 1;
+}
+
+#iconClose {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.fab-container.active #iconMail {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.fab-container.active #iconClose {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* tombol sosial kecil (LinkedIn, Twitter, IG) */
+.fab-item {
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--bg-color);
+    color: var(--main-color);
+    border: 0.2rem solid var(--main-color);
+    font-size: 1.8rem;
+
+    box-shadow: 0 0.4rem 1rem rgba(0,0,0,0.25);
+
+    position: fixed;
+    bottom: 3rem;
+    right: 3.55rem;
+
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+    pointer-events: none;
+    transition: transform 0.35s ease, opacity 0.3s ease;
+    transition-delay: 0s;
+}
+
+.fab-container.active .fab-item {
+    opacity: 1;
+    transform: translateY(calc(var(--i) * -6.5rem)) scale(1);
+    pointer-events: auto;
+    transition-delay: calc(var(--i) * 0.05s);
+}
+
+.fab-item:hover {
+    background: var(--main-color);
+    color: var(--bg-color);
+}
+
+.scroll-top-btn {
+    position: fixed;
+    bottom: 3rem;
+    left: 3rem;              /* kiri, biar gak numpuk sama fab-container yang di kanan */
+    z-index: 998;
+
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--main-color);
+    color: var(--bg-color);
+    font-size: 2.2rem;
+
+    box-shadow: 0 0.6rem 1.6rem rgba(0,0,0,0.35);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+    /* default: tersembunyi, baru muncul pas discroll ke bawah */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(1rem);
+}
+
+.scroll-top-btn.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.scroll-top-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 0.2rem solid var(--main-color);
+    padding: 0.6rem 6rem 0.6rem 2.5rem;
+    top: 0.8rem;
+    left: 4rem;
+    right: 4rem;
+    border: 1px solid var(--bg-color);
+    border-radius: 5rem;
+    background: var(--main-color);
+    margin: 3rem 9rem;
+    position: fixed;
+    box-sizing: border-box;
+
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+header:not(.show) {
+  transform: translateY(-150%); /* sembunyi kalau class .show gak ada, misal pas scroll ke bawah */
+}
+
+.logo {
+    font-size: 2rem;
+}
+.logo img {
+    width: 200px;
+    height: auto;
+    display: block;
+    transition: 0.3s ease;
+    padding: 1rem 5%;
+}
+
+.logo :hover {
+    transform: scale(1.15);
+}
+
+#menu-icon {
+    display: none;
+    color: var(--bg-color);
+    margin-right: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.navbar a {
+    color: var(--bg-color);
+    margin-left: 0rem; /*buat ngejarakin antar kata ke kiri*/
+    transition: 0.3s ease; /*memberi jeda transisi supaya lebih smooth*/
+    font-size: 1.6rem;
+} 
+
+.navbar a:hover {
+    color: var(--text-color);
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: var(--bg-color);
+}
+
+.navbar a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    background: var(--bg-color);
+    transition: 0.3s ease;
+}
+
+.navbar a:hover::after,
+.navbar a.active::after {
+    width: 100%;
+}
+/*End Header*/
+main {
+    background-color: var(--bg-color);
+    background-image: linear-gradient(
+            rgba(255, 249, 240, 0.8),
+            rgba(255, 249, 240, 0.8)
+        ), url(assets/picnics\ &\ strawberry\ fields.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    background-color: var(--bg-color);
+}
+
+.home-content h3 {
+    font-size: 3.2rem;
+    font-weight: 700;
+}
+
+.home-content h1 {
+    font-size: 6rem;
+    font-weight: 700;
+    font-family: "Cormorant Garamond", serif;
+}
+
+.home-content h4 {
+    font-size: 2rem;
+}
+
+span {
+    color: var(--main-color);
+}
+
+.home-content p {
+    font-size: 1.6rem;
+    margin-bottom: 4rem;
+}
+
+.home-content a {
+    margin-right: 2rem;
+}
+
+#button {
+    margin-bottom: 5rem;
+}
+
+.btn {
+    display: inline-block;
+    background: var(--main-color);
+    font-size: 1.6rem;
+    color: var(--bg-color);
+    padding: 1rem/*ver*/ 2.8rem/*hor*/;
+    font-weight: 600;
+    border: 0.2rem solid var(--main-color);
+    border-radius: 4rem;
+    letter-spacing: 0.1rem;
+    transition: 0.5s ease;
+}
+
+.btn:hover {
+    background-color: transparent;
+    border-color: var(--main-color);
+    color: var(--main-color);
+}
+
+.home-img img {
+    border-radius: 100%;
+    border: 1.5px solid var(--text-color);
+    width: 25vw;
+    height: 25vw;
+    animation: floatImage 4s ease-in-out infinite;
+}
+
+.home-img {
+    margin-right: 4rem;
+}
+
+@keyframes floatImage {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-2.4rem);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+.about {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    min-height: auto;
+    padding-top: 8rem;
+    padding-bottom: 13rem;
+}
+.about::before {
+    content: "✦";
+    position: absolute;
+    font-size: 3rem;
+    color: var(--main-color);
+
+    animation: floatingStar 3s ease-in-out infinite;
+}
+
+@keyframes floatingStar {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(15deg);
+    }
+}
+.about .heading {
+    align-self: flex-start;
+    font-size: 4.5rem;
+}
+
+.heading {
+    font-size: 4.5rem;
+}
+.about-content p {
+    font-size: 1.6rem;
+    margin: 2rem 0 3rem;
+}
+
+.reveal-card {
+    width: 100%;
+    padding: 2rem 2.5rem;
+
+    background: var(--bg-color);
+    border: 1px solid var(--main-color);
+    border-radius: 1.5rem;
+
+    transition: .4s ease;
+}
+.reveal-title {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--main-color);
+  font-family: "Cormorant Garamond", serif;
+}
+
+.reveal-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+  opacity: 0;
+  margin-top: 0;
+}
+
+.reveal-card:hover {
+    transform: translateY(-8px) rotate(0deg);
+    box-shadow: 8px 8px 0 var(--main-color);
+}
+.reveal-content p {
+    font-size: 1.6rem;
+}
+
+.reveal-card:hover .reveal-content {
+  max-height: 200px; /* set lebih tinggi dari konten aslinya */
+  opacity: 1;
+  margin-top: 12px;
+}
+.services {
+    position: relative;
+    text-align: center;
+    min-height: auto;
+    padding-top: 5rem;
+    background-color: var(--bg-color);
+    padding-top: 9rem;
+    padding-bottom: 7rem;
+}
+.services h2 {
+    margin-bottom: 5rem
+}
+.services-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.skill-flip-card {
+    width: 200px;
+    height: 170px;
+    perspective: 1200px;
+}
+
+.skill-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+.skill-flip-card:hover .skill-flip-inner {
+  transform: rotateY(180deg);
+}
+.skill-flip-front {
+    background: var(--main-color);
+    color: var(--bg-color);
+    border: 2px solid var(--text-color);
+}
+.skill-flip-back {
+    background: var(--bg-color);
+    border: 2px solid var(--main-color);
+}
+.skill-flip-front,
+.skill-flip-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.skill-icon {
+    font-size: 4rem;
+    color: var(--bg-color);
+}
+
+.skill-flip-front h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 8px 0 0;
+}
+
+.skill-flip-front,
+.skill-flip-back {
+    padding: 15px;
+    border-radius: 16px;
+}
+
+.skill-flip-back {
+    transform: rotateY(180deg); /* posisi awal, udah "dibalik" */
+    gap: 8px;
+}
+
+.skill-flip-back p {
+    font-size: 1.6rem;
+    line-height: 1.4;
+    margin: 0;
+}
+.services::before {
+    content: "✦";
+    position: absolute;
+    top: 8rem;
+    left: 15%;
+    color: var(--main-color);
+    font-size: 2.5rem;
+    animation: sparkle 2.5s ease-in-out infinite;
+}
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+}
+.services::after {
+    content: "✧";
+    position: absolute;
+    top: 13rem;
+    right: 15%;
+    color: var(--main-color);
+    font-size: 2rem;
+}
+.portofolio {
+    text-align: center;
+    padding-bottom: 1px;
+    min-height: 40vw;
+}
+
+.portofolio-track-wrapper {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 3.5rem;
+}
+
+.portofolio-track {
+    display: flex;
+    gap: 2.5rem;
+    padding-bottom: 3.5rem;
+    padding-top: 0.5rem;
+    width: max-content;
+    animation: scrollLeft 30s linear infinite;
+}
+
+@keyframes scrollLeft {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.portofolio-track:hover {
+    animation-play-state: paused;
+}
+
+.portofolio-box {
+    position: relative;
+    flex: 0 0 auto;
+    width: 32rem;
+    height: 24rem;
+    border: 2px solid rgba(58, 41, 37, 0.7);
+    border-radius: 2rem;
+    overflow: hidden;
+    background: var(--text-color);
+    cursor: pointer;                     /* kasih tanda bisa diklik */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portofolio-box:hover {
+    transform: scale(1.03);              /* efek kecil pas hover, bukan melebar total */
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.25);
+}
+
+.portofolio-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ===== LIGHTBOX ===== */
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(37, 38, 51, 0.85);
+    backdrop-filter: blur(4px);
+}
+
+.lightbox-content {
+    position: relative;
+    display: flex;
+    background: var(--bg-color);
+    border-radius: 2rem;
+    overflow: hidden;
+    max-width: 90vw;
+    max-height: 85vh;
+    padding: 3rem;
+    gap: 3rem;
+    box-shadow: 0 2rem 5rem rgba(0,0,0,0.5);
+    animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.lightbox-content img {
+    max-width: 50vw;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 1rem;
+}
+
+.lightbox-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 30rem;
+}
+
+.lightbox-info h4 {
+    font-size: 2.4rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.lightbox-info p {
+    font-size: 1.6rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(0,0,0,0.4);
+    border: none;
+    color: var(--bg-color);
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+/* end portofolio */
+
+/* interest */
+.expe-sec {
+  background-color: var(--bg-color);
+  margin: 0 auto;
+}
+
+.exp-item {
+  background: transparent;
+  border: 1px solid var(--main-color);
+  border-radius: 1.4rem;
+  padding: 2.4rem;
+  margin-bottom: 2.4rem;
+  transition: 0.3s ease;
+  margin-top: 3rem;
+}
+
+.exp-item:hover {
+  border-color: var(--text-color);
+  transform: translateY(-0.3rem);
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.exp-header h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--main-color);
+  margin: 0;
+}
+
+.exp-date {
+  font-size: 1.4rem;
+  color: var(--main-color);
+  white-space: nowrap;
+}
+
+.exp-org {
+  font-size: 1.5rem;
+  color: var(--main-color);
+  margin: 0.4rem 0 1.2rem;
+}
+
+.exp-desc {
+  padding-left: 1.8rem;
+  margin: 0;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+
+.exp-desc li {
+  margin-bottom: 0.6rem;
+}
+
+.exp-competitions {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0 0;
+}
+
+.exp-competitions li {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 0.1rem solid var(--main-color);
+  font-size: 1.5rem;
+}
+
+.exp-competitions li:last-child {
+  border-bottom: none;
+}
+
+.comp-name {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.comp-result {
+  color: var(--text-color);
+  opacity: 0.75;
+  font-size: 1.4rem;
+}
+
+@media (max-width: 600px) {
+  .exp-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .exp-competitions li {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}
+
+/* end interest */
+
+/* contact */
+.contact {
+  text-align: center;
+  flex-wrap: wrap;
+  min-height: 48vw;
+}
+
+.contact form {
+    max-width: 70rem;
+    margin: 0 auto;
+}
+
+.contact h2 {
+  margin-bottom: 3rem;
+}
+
+.input-box {
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.input-box input,
+form textarea {
+  width: 100%;
+  padding: 1.4rem 1.8rem;
+  font-size: 1.6rem;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  border: 0.1rem solid var(--main-color);
+  border-radius: 0.8rem;
+  margin-bottom: 2rem;
+  transition: 0.3s ease;
+}
+
+.input-box input {
+  width: 100%;
+}
+
+.input-box input:focus,
+.contact form textarea:focus {
+  border-color: var(--text-color);
+  background-color: var(--bg-color);
+  outline: none;
+}
+
+.contact form textarea {
+  resize: none;
+  height:15rem;
+  width: 100%;
+}
+
+form .btn {
+  cursor: pointer;
+  margin-top: 2.5rem;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: fit-content;
+  text-align: center;
+}
+
+/* end contact */
+
+/* footer */
+.footer {
+    background: var(--second-bg-color);
+    text-align: center;
+}
+.footer p {
+    font-size: 1.6rem;
+    padding: 2rem 0 2rem 0;
+}
+/* end footer */
+
+/* BREAKPOINTS */
+/* 
+1. 1200px=desktop
+2. 991px=tablet landscape
+3. 768px=tablet potrait
+4. 617px=hp besar
+5. 450px=hp standar
+6. 356px=hp kecil
+*/
+
+/* 1200px */
+@media (max-width: 1200px) {
+    html {
+        font-size: 55%;
+    }
+}
+/* 1200px end */
+
+/* 991px */
+@media (max-width: 991px) {
+    header {
+        padding: 2rem 3%;
+        border-radius: 8rem;
+    }
+    section {
+        padding: 8rem 3% 2rem;
+    }
+    .footer {
+        padding: 2rem 3%;
+    }
+    .portofolio {
+        padding-bottom: 7rem;
+    }
+    .services {
+        padding-bottom: 7rem;
+    }
+    .expe-sec {
+        min-height: auto;
+        padding-bottom: 6rem;
+    }
+    .home {
+        min-height: 80vh;
+        padding-bottom: 4rem;
+    }
+}
+/* 991px end */
+
+/* 768px */
+@media (max-width: 768px) {
+    #menu-icon {
+        display: block;
+        font-size: 3rem;
+    }
+    .navbar {
+        position: absolute;
+        background: var(--bg-color);
+        top: calc(100% + 1.5rem);
+        left: 0;
+        width: 100%;
+        padding: 3rem 6%;
+        border-radius: 2rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+        border-top: 0.1rem solid rgba(0, 0, 0, 0.2);
+        display: none;
+    }
+    .active {
+        display: block;
+    }
+    .navbar a {
+        display: block;
+        margin: 1rem 0;
+        padding: 1.2rem 1.5rem;
+        font-size: 2rem;
+        color: var(--main-color);
+        border-radius: 1rem;
+        transition: 0.3s ease;
+    }
+    .navbar a:hover,
+    .navbar a:active {
+        color: var(--text-color); 
+    }
+    .navbar a::after {
+        height: 2px;                    
+        background: var(--main-color);  
+    }     
+    .home {
+        flex-direction: column;
+        padding-top: 2rem;
+    }
+    .home h3 {
+        font-size: 2.6rem;
+    }
+    .home h1 {
+        font-size: 4rem;
+    }
+    .home-img {
+        margin-right: 0;
+    }
+    .home-img img {
+        width: 40vw;
+        height: 40vw;
+        margin-top: 4rem;
+    }
+    .home-content .btn {
+        margin-top: 0;
+        margin-bottom: 3rem;
+    }
+    .about {
+        flex-direction: column;
+        position: relative;
+    }
+    .about-img img {
+        width: 70vw;
+    }
+    .about-content {
+        padding-bottom: 4rem;
+    }
+    .portofolio-box {
+        width: 26rem;
+        height: 20rem;
+    }
+    header {
+        margin: 1.5rem;
+        padding: 0.6rem 2rem;
+    }
+    .logo img {
+        width: 140px;
+    }
+    .expe-sec {
+        min-height: auto;    /* biar tingginya ngikutin konten, bukan dipaksa 100vh */
+        padding-bottom: 12rem;
+    }
+    .contact {
+        min-height: auto;
+        padding-bottom: 8rem;
+    }
+    .footer {
+        padding: 1rem;
+    }
+}
+/* 768px end */
+
+/* 617px */
+@media (max-width: 617px) {
+    .portofolio-box {
+        width: 26rem;
+        height: 20rem;
+    }
+    .lightbox-content {
+        flex-direction: column;
+        padding: 2rem;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .lightbox-content img {
+        max-width: 100%;
+        max-height: 40vh;
+    }
+    .lightbox-info {
+        max-width: 100%;
+    }
+    .input-box {
+        flex-direction: column;
+        gap: 0;
+    }
+    .input-box input {
+        width: 100%;
+    }
+}
+/* 617px end */
+
+/* 450px */
+@media (max-width: 450px) {
+    html {
+        font-size: 50%;
+    }
+    .contact form .input-box input {
+        width: 100%;
+    }
+    .fab-main,
+    .scroll-top-btn {
+        width: 4.6rem;
+        height: 4.6rem;
+    }
+    .fab-container,
+    .scroll-top-btn {
+        bottom: 2rem;
+    }
+}
+/* 450px end */
+
+/* 356px */
+@media (max-width: 356px) {
+    .home-content a {
+        padding: 1rem 1.5rem;
+    }
+    .footer {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    .footer p {
+        margin-top: 2rem;
+    }
+}
+/* 356px end */
